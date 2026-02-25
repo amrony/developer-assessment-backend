@@ -5,21 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Product extends Model
+class Order extends Model
 {
     protected $fillable = [
-        'name',
-        'sku',
-        'price',
-        'stock_quantity',
+        'customer_name',
+        'total_amount',
+        'status',
     ];
 
     protected $casts = [
-        'price' => 'decimal:2',
-        'stock_quantity' => 'integer',
+        'total_amount' => 'decimal:2',
     ];
 
-    public function orderItems(): HasMany
+    public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
