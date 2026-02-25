@@ -13,6 +13,20 @@ use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
 {
+    public function index(): JsonResponse
+    {
+        $orders = Order::with('items.product')
+            ->latest()
+            ->get();
+
+        return response()->json($orders);
+    }
+
+    public function show(Order $order): JsonResponse
+    {
+        return response()->json($order->load('items.product'));
+    }
+
     public function store(StoreOrderRequest $request): JsonResponse
     {
         $validated = $request->validated();
